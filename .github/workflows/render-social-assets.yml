@@ -1,0 +1,41 @@
+name: Render social carousel images
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install renderer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+      - name: Render SVG carousel assets to PNG
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -type f -path "./20??-??-??/*" -name "*.svg" -print0 | while IFS= read -r -d '' svg; do
+            png="${svg%.svg}.png"
+            echo "Rendering $svg -> $png"
+            rsvg-convert -w 1080 -h 1350 "$svg" -o "$png"
+          done
+      - name: Commit rendered PNG files
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain -- '*.png')" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -- '*.png'
+            git commit -m "Render social carousel PNG assets"
+            git push
+          else
+            echo "No PNG changes to commit."
+          fi
