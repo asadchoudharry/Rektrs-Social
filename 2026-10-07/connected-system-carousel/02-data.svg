@@ -12,7 +12,7 @@
     <filter id="shadow"><feDropShadow dx="0" dy="10" stdDeviation="16" flood-opacity=".12"/></filter>
   </defs>
   <rect width="1080" height="1350" fill="#f7f4ee"/>
-  <image href="logo.webp" x="80" y="55" width="300" height="125" preserveAspectRatio="xMinYMid meet"/>
+  <text x="82" y="145" font-family="Arial, sans-serif" font-size="86" font-weight="900" fill="#1439a5">rektrs.</text><text x="382" y="90" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#1439a5">®</text>
   <rect x="65" y="215" width="950" height="1065" rx="55" fill="#08182c" filter="url(#shadow)"/>
   <rect x="65" y="215" width="950" height="1065" rx="55" fill="url(#g1)"/>
   <rect x="65" y="215" width="950" height="1065" rx="55" fill="url(#g2)"/>
